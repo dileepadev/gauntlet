@@ -43,6 +43,34 @@ Thank you for your interest in contributing to [gauntlet](https://github.com/dil
    - Add a title and description for your pull request. Follow the [pull request guidelines](PULL_REQUEST_GUIDELINES.md).
    - Click **Create pull request** and remember to add the relevant labels using the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
 
+## Development Setup
+
+This project uses [uv](https://docs.astral.sh/uv/) for environments and packaging. Python 3.12 or newer is required.
+
+```bash
+# Install dependencies (creates .venv automatically)
+uv sync --all-groups
+
+# Run the test suite
+uv run pytest
+
+# Lint, format, and type-check - all three must pass before you open a PR
+uv run ruff check .
+uv run ruff format .
+uv run mypy
+```
+
+CI runs exactly these checks, plus `markdownlint` across all Markdown files, on every pull request.
+
+### Code style
+
+Style is enforced by `ruff`, configured in [pyproject.toml](pyproject.toml) — there is no separate style document to read. Types are checked by `mypy` in strict mode, so new code needs full annotations.
+
+Two conventions the tooling cannot enforce, both of which matter here:
+
+- **Detectors read traces, never model text.** A model can refuse in prose while calling the tool anyway. If a check reads what the model *said*, it is not a detector.
+- **Corpus payloads stay inside the safety rules.** They are documented in the [threat model](docs/threat-model.md#safety-rules-for-the-corpus) and are not negotiable.
+
 ## Guidelines
 
 - Follow the project's code style.
@@ -53,6 +81,7 @@ Thank you for your interest in contributing to [gauntlet](https://github.com/dil
 - Refer to the following templates and guidelines before submitting your changes:
   - [gauntlet/](./) - Root directory of the repository
     - [.github/](./.github) - GitHub-specific files (workflows, templates, etc.)
+      - [workflows/ci.yml](./.github/workflows/ci.yml) - Lint, type-check, test, and docs CI
       - [ISSUE_TEMPLATE/](./.github/ISSUE_TEMPLATE) - Contains all issue templates
         - [bug_report.md](./.github/ISSUE_TEMPLATE/bug_report.md) - Template for reporting bugs
         - [documentation_update.md](./.github/ISSUE_TEMPLATE/documentation_update.md) - Template for documentation updates
@@ -60,6 +89,13 @@ Thank you for your interest in contributing to [gauntlet](https://github.com/dil
         - [feedback.md](./.github/ISSUE_TEMPLATE/feedback.md) - Template for general feedback
         - [other.md](./.github/ISSUE_TEMPLATE/other.md) - Template for other types of issues
       - [PULL_REQUEST_TEMPLATE.md](./.github/PULL_REQUEST_TEMPLATE.md) - Template for pull request submissions
+    - [docs/](./docs) - Project documentation
+      - [README.md](./docs/README.md) - Documentation index and reading paths
+      - [concepts.md](./docs/concepts.md) - Gauntlet explained for newcomers
+      - [attack-classes.md](./docs/attack-classes.md) - The ten attack classes, explained
+      - [how-it-works.md](./docs/how-it-works.md) - Pipeline and architecture detail
+      - [threat-model.md](./docs/threat-model.md) - Attacker model, scope, and corpus safety rules
+      - [glossary.md](./docs/glossary.md) - Terms defined in one or two lines
     - [BRANCH_NAMING_GUIDELINES.md](./BRANCH_NAMING_GUIDELINES.md) - Branch naming rules
     - [CHANGELOG.md](./CHANGELOG.md) - Record of project changes
     - [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) - Contributor behavior guidelines
@@ -71,6 +107,9 @@ Thank you for your interest in contributing to [gauntlet](https://github.com/dil
     - [SECURITY.md](./SECURITY.md) - Security policy and reporting
     - [TODO.md](./TODO.md) - Tasks planned for future releases
     - [VERSIONING.md](./VERSIONING.md) - Versioning strategy for the project
+    - [pyproject.toml](./pyproject.toml) - Project metadata, dependencies, and tool configuration
+    - [src/gauntlet/](./src/gauntlet) - The harness itself
+    - [tests/](./tests) - Test suite
 
 ## Code of Conduct
 
