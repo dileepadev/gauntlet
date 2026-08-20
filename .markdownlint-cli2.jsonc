@@ -1,0 +1,13 @@
+{
+  // Documentation-heavy repository. These rules fight the way the docs are
+  // written rather than catching real problems.
+  "config": {
+    "MD013": false, // line length - prose is written in long lines, wrapped by the editor
+    "MD024": { "siblings_only": true }, // repeated headings are fine across sections
+    "MD033": false, // inline HTML - used in GitHub alert callouts and templates
+    "MD041": false, // first line need not be a heading (issue templates carry front matter)
+    "MD046": false // both fenced and indented code blocks appear in guideline docs
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules/**", ".venv/**"]
+}
