@@ -21,7 +21,7 @@ The pull request title should follow the format:
   - `test`: Adding or modifying tests.
   - `chore`: Routine tasks, maintenance, or tooling changes.
 
-- `<branch>`: Branch where the changes are made, e.g., `feature/<name>` (use feature branches for new work).
+- `<branch>`: Branch where the changes are made, following the [branch naming guidelines](BRANCH_NAMING_GUIDELINES.md) (e.g. `feat/<name>` for new work).
 
 - `<message>`: A short, clear, and concise description of the changes.
 
@@ -29,7 +29,7 @@ The pull request title should follow the format:
 
 ## Examples
 
-- `feat(feature/new-footer): Add new footer [#09]`
+- `feat(feat/mcp-stdio-target): Add MCP stdio adapter [#09]`
 - `fix(fix/login): Resolve issue with login [#123]`
 - `docs(docs/readme): Update installation instructions`
 - `style(style/formatting): Format code according to style guide`

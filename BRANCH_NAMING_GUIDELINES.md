@@ -8,7 +8,7 @@ These branches are protected and can only be updated by repository administrator
 
 | Branch Name | Description                                                                            |
 | ----------- | -------------------------------------------------------------------------------------- |
-| `main`      | The stable, production-ready version of the website.                                   |
+| `main`      | The stable, released version of the project.                                           |
 | `dev`       | The development branch containing features and bug fixes not yet ready for production. |
 
 ## Contributing Branches
