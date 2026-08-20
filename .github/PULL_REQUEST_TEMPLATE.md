@@ -33,13 +33,13 @@ title: "<type>(<branch>): <message> [#issue_number]"
 <!-- [REQUIRED] Tick all that apply -->
 
 <!-- Use "x" to check. -->
-<!-- example: - [x] I've followed the [CONTRIBUTING.md](CONTRIBUTING.md). -->
+<!-- example: - [x] I've followed the [CONTRIBUTING.md](../CONTRIBUTING.md). -->
 
-- [ ] I've followed the [CONTRIBUTING.md](CONTRIBUTING.md).
-- [ ] I've followed the [Commit Message Guidelines](COMMIT_MESSAGE_GUIDELINES.md).
-- [ ] I've followed the [Branch Naming Guidelines](BRANCH_NAMING_GUIDELINES.md).
-- [ ] I agree to follow the [Pull Request Guidelines](PULL_REQUEST_GUIDELINES.md).
-- [ ] I agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+- [ ] I've followed the [CONTRIBUTING.md](../CONTRIBUTING.md).
+- [ ] I've followed the [Commit Message Guidelines](../COMMIT_MESSAGE_GUIDELINES.md).
+- [ ] I've followed the [Branch Naming Guidelines](../BRANCH_NAMING_GUIDELINES.md).
+- [ ] I agree to follow the [Pull Request Guidelines](../PULL_REQUEST_GUIDELINES.md).
+- [ ] I agree to follow the [Code of Conduct](../CODE_OF_CONDUCT.md).
 - [ ] Documentation has been updated where necessary.
 - [ ] I've tested the changes where applicable.
 
