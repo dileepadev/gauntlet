@@ -4,21 +4,20 @@
 
 Gauntlet is an adversarial test harness for AI agent systems. Point it at your MCP servers, your agent framework, or your agent firewall, and it runs a corpus of real attack classes and returns a reproducible report card: what got through, what was blocked, and what your configuration is genuinely exposed to.
 
+> [!NOTE]
 > **Status: early development.** The corpus design and architecture below are settled; implementation is in progress. Nothing here is usable yet. Watch the repo or check the roadmap for current state.
-
----
 
 ## Why this exists
 
 Open-source defences for AI agents arrived fast: policy-enforcing proxies that sit between an MCP client and server, inbound and outbound tool-call checks, DLP and egress control, injection classifiers, and guardrail frameworks from major labs. The defensive layer is well served.
 
-**What's missing is the proof.** Nearly every one of these tools asserts its own efficacy without shipping the adversarial suite that would demonstrate it. And when researchers red-teamed a set of widely used MCP clients in early 2026, they found significant disparities between them — some clients well guarded, others susceptible to cross-tool poisoning, hidden parameter exploitation, and unauthorized tool invocation. That work was a paper, not a tool anyone can run against their own stack.
+## What's missing is the proof
+
+Nearly every one of these tools asserts its own efficacy without shipping the adversarial suite that would demonstrate it. And when researchers red-teamed a set of widely used MCP clients in early 2026, they found significant disparities between them — some clients well guarded, others susceptible to cross-tool poisoning, hidden parameter exploitation, and unauthorized tool invocation. That work was a paper, not a tool anyone can run against their own stack.
 
 So the question this project answers is not *"how do I block attacks?"* but:
 
-**"Given my actual configuration, which attacks currently succeed?"**
-
----
+> Given my actual configuration, which attacks currently succeed?
 
 ## What it does
 
@@ -31,8 +30,6 @@ So the question this project answers is not *"how do I block attacks?"* but:
 ### The most useful number
 
 Run the same target twice — guardrails off, then on — and Gauntlet reports the delta. That single comparison is what lets anyone, including firewall authors, demonstrate that a defence actually works.
-
----
 
 ## Attack corpus
 
@@ -53,8 +50,6 @@ Each case is a directory containing setup, payload, expected-safe behaviour, and
 
 Initial release covers tool poisoning, cross-tool contamination, and exfiltration chains properly, rather than all ten shallowly.
 
----
-
 ## Scope and ethics
 
 This is a test harness for systems you control, not an attack toolkit.
@@ -66,11 +61,9 @@ This is a test harness for systems you control, not an attack toolkit.
 
 If you cannot run a case safely against your own infrastructure, it does not belong in the corpus.
 
----
-
 ## Architecture
 
-```
+```tree
 gauntlet/
 ├── corpus/                    # attack cases: metadata, payload, detector
 ├── src/gauntlet/
@@ -81,16 +74,30 @@ gauntlet/
 │   ├── score.py               # per-class and severity-weighted scoring
 │   └── report.py              # report card generation
 ├── results/                   # published scans
-└── docs/threat-model.md
+└── docs/                      # concepts, attack classes, threat model, glossary
 ```
 
 Adding a new target is a new adapter implementing `list_tools()`, `call_tool()`, and `converse()`. Adding a new attack is a new corpus directory. Neither requires touching the runner.
 
----
+## Documentation
+
+New to agent security? [**Gauntlet in Plain English**](docs/concepts.md) explains the whole idea with no security background assumed.
+
+| Page | What it covers |
+| --- | --- |
+| [Gauntlet in Plain English](docs/concepts.md) | Agents, tools, MCP, prompt injection, and what Gauntlet does about them |
+| [Attack Classes Explained](docs/attack-classes.md) | All ten classes above, one short story each |
+| [How Gauntlet Works](docs/how-it-works.md) | The pipeline: target, case, run, trace, detect, score, report |
+| [Threat Model](docs/threat-model.md) | The attacker, the trust boundaries, and the limits of any score |
+| [Glossary](docs/glossary.md) | Every term, defined in one or two lines |
+
+Full index in [docs/](docs/README.md).
 
 ## Roadmap
 
-**Stage 0 — Harness and corpus**
+The detailed, milestone-by-milestone build plan lives in [TODO.md](TODO.md).
+
+### Stage 0 — Harness and corpus
 
 - [ ] Target protocol and MCP stdio adapter
 - [ ] Trace capture
@@ -99,23 +106,19 @@ Adding a new target is a new adapter implementing `list_tools()`, `call_tool()`,
 - [ ] Report card generation
 - [ ] Scan and publish results for several real targets
 
-**Stage 1 — Distribution**
+### Stage 1 — Distribution
 
 - [ ] Installable CLI
 - [ ] GitHub Action to gate builds on an agent-security score
 - [ ] Community-contributable attack packs
 
-**Stage 2 — Enforcement**
+### Stage 2 — Enforcement
 
 - [ ] `gauntlet guard`: a proxy that blocks what the corpus proves is dangerous — shipping with the evidence behind each rule
 
----
-
 ## Contributing
 
-Attack cases are the most valuable contribution. A good case is reproducible, safely scoped, and comes with a detector that reads the trace rather than the model's text. Contribution guidelines will follow the first release.
-
----
+Attack cases are the most valuable contribution. A good case is reproducible, safely scoped, and comes with a detector that reads the trace rather than the model's text. Start with [How Gauntlet Works](docs/how-it-works.md) and the safety rules in the [threat model](docs/threat-model.md#safety-rules-for-the-corpus); full contribution guidelines for cases will follow the first release.
 
 ## Author
 
